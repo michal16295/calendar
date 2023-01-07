@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getHours, getMinutes, isToday } from "date-fns";
+import TimeIndicator from "../Shared/TimeIndicator";
 interface ColProps {
   time: number;
   date: Date;
@@ -23,10 +24,7 @@ const Col = ({ time, date, colIndex }: ColProps) => {
     <Container>
       <>{colIndex === 0 && <Label>{time}</Label>}</>
       {shouldDisplayTimeIndicator && (
-        <Row marginTop={getMinutes(currentTime) * 0.55}>
-          <Circle />
-          <Line />
-        </Row>
+        <TimeIndicator currentTime={currentTime} />
       )}
     </Container>
   );
@@ -52,27 +50,4 @@ const Label = styled.div`
   width: 25px;
   left: -25px;
   border-bottom: 1px solid lightgray;
-`;
-
-const Line = styled.div`
-  height: 2px;
-  width: 100%;
-  background: rgb(234, 67, 53);
-`;
-
-const Circle = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgb(234, 67, 53);
-`;
-
-const Row = styled.div<{ marginTop: number }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  right: 5px;
-  margin-top: ${(props) => `${props.marginTop}px`};
 `;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Dropdown from "./Dropdown";
+import Dropdown from "./Shared/Dropdown";
 import { viewingOptions } from "../utils";
 import { useState } from "react";
 import { DateRange, ViewOption } from "../types";
