@@ -66,7 +66,13 @@ const DatesSwitcher = ({
 
   const getDisplay = () => {
     switch (selected) {
-      case "week":
+      case "month":
+        return <Title>{format(dateRange.start, "MMMM yyyy")}</Title>;
+      case "year":
+        return <Title>{format(dateRange.start, "yyyy")}</Title>;
+      case "day":
+        return <Title>{format(dateRange.start, "MMMM d, yyyy")}</Title>;
+      default:
         return (
           <Title>
             {dateRange.start.getMonth() === dateRange.end.getMonth()
@@ -75,14 +81,6 @@ const DatesSwitcher = ({
                 format(dateRange.end, "MMM yyyy")}
           </Title>
         );
-      case "month":
-        return <Title>{format(dateRange.start, "MMMM yyyy")}</Title>;
-      case "year":
-        return <Title>{format(dateRange.start, "yyyy")}</Title>;
-      case "day":
-        return <Title>{format(dateRange.start, "MMMM d, yyyy")}</Title>;
-      default:
-        return null;
     }
   };
 
