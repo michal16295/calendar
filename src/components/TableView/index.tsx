@@ -14,7 +14,6 @@ interface TableViewProps {
 const dayViewDateLabelStyle = {
   flex: 0,
   marginLeft: "10px",
-  marginBottom: "-35px",
 };
 
 const TableView = ({ dateRange, selected }: TableViewProps) => {

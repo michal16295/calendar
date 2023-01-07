@@ -18,6 +18,7 @@ const HeaderItem = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  margin-bottom: -35px;
 `;
 
 const Label = styled.div<{ isToday: boolean }>`
