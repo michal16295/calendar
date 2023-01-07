@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import { ViewOption, DateRange } from "./types";
 
-function App() {
+const App = () => {
+  const [selectedView, setSelectedView] = useState<ViewOption>("week");
+  const [dateRange, setDateRange] = useState<DateRange>({
+    start: new Date(),
+    end: new Date(),
+  });
+
+  const handleSelectedView = (value: ViewOption) => {
+    setSelectedView(value);
+  };
+
+  const handleSetDateRange = (start: Date, end: Date) => {
+    setDateRange({
+      start,
+      end,
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header
+        selected={selectedView}
+        handleSelect={handleSelectedView}
+        handleSetDateRange={handleSetDateRange}
+        dateRange={dateRange}
+      />
+    </>
   );
-}
+};
 
 export default App;
