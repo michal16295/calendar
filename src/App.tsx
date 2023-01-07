@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
+import WeekView from "./components/WeekView";
 import { ViewOption, DateRange } from "./types";
+import { startOfWeek, endOfWeek } from "date-fns";
 
 const App = () => {
   const [selectedView, setSelectedView] = useState<ViewOption>("week");
   const [dateRange, setDateRange] = useState<DateRange>({
-    start: new Date(),
-    end: new Date(),
+    start: startOfWeek(new Date()),
+    end: endOfWeek(new Date()),
   });
 
   const handleSelectedView = (value: ViewOption) => {
@@ -20,6 +22,15 @@ const App = () => {
       end,
     });
   };
+
+  const renderView = () => {
+    switch (selectedView) {
+      case "week":
+        return <WeekView dateRange={dateRange} />;
+      default:
+        return <WeekView dateRange={dateRange} />;
+    }
+  };
   return (
     <>
       <Header
@@ -28,6 +39,7 @@ const App = () => {
         handleSetDateRange={handleSetDateRange}
         dateRange={dateRange}
       />
+      {renderView()}
     </>
   );
 };

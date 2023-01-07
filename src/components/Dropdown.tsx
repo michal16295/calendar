@@ -21,7 +21,7 @@ const Dropdown = ({
   return (
     <Container onClick={() => handleOpen(!isOpen)}>
       <Row>
-        <span>{selected.label || "Select"}</span>
+        <Label>{selected.label || "Select"}</Label>
         <RiArrowDropDownLine size={25} />
       </Row>
       {isOpen && (
@@ -74,6 +74,7 @@ const DropdownContainer = styled.div`
   right: -5px;
   min-width: 90px;
   padding: 4px 0;
+  z-index: 10;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 `;
 
@@ -94,4 +95,11 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 75px;
+  padding-left: 4px;
+`;
+
+const Label = styled.span`
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(60, 64, 67);
 `;

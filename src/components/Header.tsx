@@ -5,6 +5,7 @@ import { useState } from "react";
 import { DateRange, ViewOption } from "../types";
 import DatesSwitcher from "./DatesSwitcher";
 import { format, startOfDay, endOfDay } from "date-fns";
+import { endOfWeek, startOfWeek } from "date-fns/esm";
 
 const today = format(new Date(), "d");
 
@@ -27,9 +28,13 @@ const Header = ({
 
   const handleTodayClick = () => {
     const today = new Date();
-    const start = startOfDay(today);
-    const end = endOfDay(today);
-    handleSetDateRange(start, end);
+    switch (selected) {
+      case "day":
+        handleSetDateRange(startOfDay(today), endOfDay(today));
+        break;
+      default:
+        handleSetDateRange(startOfWeek(today), endOfWeek(today));
+    }
   };
 
   return (

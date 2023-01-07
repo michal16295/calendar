@@ -15,7 +15,9 @@ import {
   endOfDay,
   startOfYear,
   endOfYear,
+  eachDayOfInterval,
 } from "date-fns";
+import { DateRange } from "./types";
 
 export const viewingOptions = [
   {
@@ -90,4 +92,10 @@ export const getPrevDayRange = (currentDate: Date) => {
   const end = endOfDay(subDays(currentDate, 1));
 
   return { start, end };
+};
+
+export const getDatesBetween = (dateRange: DateRange) => {
+  const startDate = startOfDay(dateRange.start);
+  const endDate = startOfDay(dateRange.end);
+  return eachDayOfInterval({ start: startDate, end: endDate });
 };
