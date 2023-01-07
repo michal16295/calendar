@@ -21,22 +21,25 @@ import { DateRange } from "./types";
 
 export const viewingOptions = [
   {
-    label: "Month",
-    value: "month",
+    label: "Day",
+    value: "day",
   },
   {
     label: "Week",
     value: "week",
   },
   {
+    label: "Month",
+    value: "month",
+  },
+
+  {
     label: "Year",
     value: "year",
   },
-  {
-    label: "Day",
-    value: "day",
-  },
 ];
+
+export const NUMBER_OF_COL = 24;
 
 export const getNextWeekRange = (currentDate: Date) => {
   const start = startOfWeek(addWeeks(currentDate, 1));

@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import styled from "styled-components";
-import { OptionType, ViewOption } from "../types";
+import { OptionType, ViewOption } from "../../types";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { useOutsideDropdownClick } from "../../hooks/useOutsideDropdownClick";
 
 interface DropdownProps {
   selected: OptionType;
@@ -17,7 +19,9 @@ const Dropdown = ({
   handleOpen,
   handleSelect,
 }: DropdownProps) => {
-  const test = 12;
+  const wrapperRef = useRef(null);
+  useOutsideDropdownClick(wrapperRef, handleOpen);
+
   return (
     <Container onClick={() => handleOpen(!isOpen)}>
       <Row>
@@ -25,7 +29,7 @@ const Dropdown = ({
         <RiArrowDropDownLine size={25} />
       </Row>
       {isOpen && (
-        <DropdownContainer>
+        <DropdownContainer ref={wrapperRef}>
           {options.length ? (
             <>
               {options.map((option) => {
@@ -34,7 +38,8 @@ const Dropdown = ({
                     onClick={() => handleSelect(option.value as ViewOption)}
                     key={option.label}
                   >
-                    {option.label}
+                    <div>{option.label}</div>
+                    <div style={{ fontSize: "11px" }}>{option.label[0]}</div>
                   </Item>
                 );
               })}
@@ -72,9 +77,10 @@ const DropdownContainer = styled.div`
   border: 1px solid #dadce0;
   top: 60px;
   right: -5px;
-  min-width: 90px;
-  padding: 4px 0;
+  min-width: 160px;
+  padding: 10px 0;
   z-index: 10;
+  background: white;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 `;
 
@@ -85,9 +91,11 @@ const Item = styled.div`
   &:hover {
     background: lightgray;
   }
-  padding-right: 25px;
-  padding-left: 10px;
+  padding: 5px 10px;
   text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Row = styled.div`
