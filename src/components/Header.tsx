@@ -6,6 +6,8 @@ import { DateRange, ViewOption } from "../types";
 import DatesSwitcher from "./DatesSwitcher";
 import { format, startOfDay, endOfDay } from "date-fns";
 import { endOfWeek, startOfWeek } from "date-fns/esm";
+import startOfMonth from "date-fns/esm/fp/startOfMonth/index.js";
+import endOfMonth from "date-fns/esm/fp/endOfMonth/index.js";
 
 const today = format(new Date(), "d");
 
@@ -31,6 +33,9 @@ const Header = ({
     switch (selected) {
       case "day":
         handleSetDateRange(startOfDay(today), endOfDay(today));
+        break;
+      case "month":
+        handleSetDateRange(startOfMonth(today), endOfMonth(today));
         break;
       default:
         handleSetDateRange(startOfWeek(today), endOfWeek(today));

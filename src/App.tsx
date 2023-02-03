@@ -1,12 +1,20 @@
 import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
-import TableView from "./components/TableView";
+import TableView from "./components/WeekDayView";
 import { ViewOption, DateRange } from "./types";
-import { startOfWeek, endOfWeek, startOfDay, endOfDay } from "date-fns";
+import {
+  startOfWeek,
+  endOfWeek,
+  startOfDay,
+  endOfDay,
+  startOfMonth,
+  endOfMonth,
+} from "date-fns";
+import MonthView from "./components/MonthView";
 
 const App = () => {
-  const [selectedView, setSelectedView] = useState<ViewOption>("day");
+  const [selectedView, setSelectedView] = useState<ViewOption>("week");
   const [dateRange, setDateRange] = useState<DateRange>({
     start: startOfWeek(new Date()),
     end: endOfWeek(new Date()),
@@ -27,6 +35,12 @@ const App = () => {
           endOfDay(dateRange.start)
         );
         break;
+      case "month":
+        handleSetDateRange(
+          startOfMonth(dateRange.start),
+          endOfMonth(dateRange.start)
+        );
+        break;
     }
   };
 
@@ -41,6 +55,8 @@ const App = () => {
     switch (selectedView) {
       case "week":
         return <TableView dateRange={dateRange} selected={selectedView} />;
+      case "month":
+        return <MonthView dateRange={dateRange} />;
       default:
         return <TableView dateRange={dateRange} selected={selectedView} />;
     }

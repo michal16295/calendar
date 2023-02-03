@@ -1,11 +1,28 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 
-const DayLabel = ({ date, styles }: { date: Date; styles?: object }) => {
+const DayLabel = ({
+  date,
+  styles,
+  shouldDisplayDate = true,
+  shouldDisplayMonth = false,
+  labelStyle,
+}: {
+  date: Date;
+  styles?: object;
+  shouldDisplayDate?: boolean;
+  shouldDisplayMonth?: boolean;
+  labelStyle?: object;
+}) => {
   return (
     <HeaderItem style={styles}>
-      <SubLabel isToday={isToday(date)}>{format(date, "EE")}</SubLabel>
-      <Label isToday={isToday(date)}>{format(date, "d")}</Label>
+      {shouldDisplayDate && (
+        <SubLabel isToday={isToday(date)}>{format(date, "EE")}</SubLabel>
+      )}
+
+      <Label isToday={isToday(date)} style={labelStyle}>
+        {format(date, shouldDisplayMonth ? "MMM d" : "d")}
+      </Label>
     </HeaderItem>
   );
 };
