@@ -6,8 +6,9 @@ interface ColProps {
   time: number;
   date: Date;
   colIndex: number;
+  handleDateRange: (date: Date, time: number) => void;
 }
-const Col = ({ time, date, colIndex }: ColProps) => {
+const Col = ({ time, date, colIndex, handleDateRange }: ColProps) => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const currentHour = getHours(currentTime);
   const shouldDisplayTimeIndicator = isToday(date) && time - 1 === currentHour;
@@ -21,7 +22,9 @@ const Col = ({ time, date, colIndex }: ColProps) => {
   }, []);
 
   return (
-    <Container>
+    <Container
+      onClick={() => (time === 0 ? null : handleDateRange(date, time))}
+    >
       <>{colIndex === 0 && <Label>{time}</Label>}</>
       {shouldDisplayTimeIndicator && (
         <TimeIndicator currentTime={currentTime} />

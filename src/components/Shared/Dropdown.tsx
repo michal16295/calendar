@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { OptionType, ViewOption } from "../../types";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -7,39 +7,53 @@ import { useOutsideDropdownClick } from "../../hooks/useOutsideDropdownClick";
 interface DropdownProps {
   selected: OptionType;
   options: Array<OptionType>;
-  isOpen: boolean;
-  handleOpen: (value: boolean) => void;
   handleSelect: (value: ViewOption) => void;
+  shouldDisplayArrow?: boolean;
+  shortLabel?: boolean;
+  containerStyle?: object;
+  dropdownStyle?: object;
+  itemStyle?: object;
 }
 
 const Dropdown = ({
   selected,
   options,
-  isOpen,
-  handleOpen,
   handleSelect,
+  shouldDisplayArrow = true,
+  shortLabel = true,
+  containerStyle,
+  dropdownStyle,
+  itemStyle,
 }: DropdownProps) => {
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const wrapperRef = useRef(null);
-  useOutsideDropdownClick(wrapperRef, handleOpen);
+  useOutsideDropdownClick(wrapperRef, setDropdownOpen);
 
   return (
-    <Container onClick={() => handleOpen(!isOpen)}>
+    <Container
+      style={containerStyle}
+      ref={wrapperRef}
+      onClick={() => setDropdownOpen((prev) => !prev)}
+    >
       <Row>
         <Label>{selected.label || "Select"}</Label>
-        <RiArrowDropDownLine size={25} />
+        {shouldDisplayArrow && <RiArrowDropDownLine size={25} />}
       </Row>
-      {isOpen && (
-        <DropdownContainer ref={wrapperRef}>
+      {dropdownOpen && (
+        <DropdownContainer style={dropdownStyle}>
           {options.length ? (
             <>
               {options.map((option) => {
                 return (
                   <Item
-                    onClick={() => handleSelect(option.value as ViewOption)}
+                    style={itemStyle}
+                    onClick={() => handleSelect(option.value as any)}
                     key={option.label}
                   >
                     <div>{option.label}</div>
-                    <div style={{ fontSize: "11px" }}>{option.label[0]}</div>
+                    {shortLabel && (
+                      <div style={{ fontSize: "11px" }}>{option.label[0]}</div>
+                    )}
                   </Item>
                 );
               })}
@@ -75,8 +89,7 @@ const DropdownContainer = styled.div`
   max-height: 230px;
   border-radius: 4px;
   border: 1px solid #dadce0;
-  top: 60px;
-  right: -5px;
+  top: 40px;
   min-width: 160px;
   padding: 10px 0;
   z-index: 10;
@@ -102,7 +115,6 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 75px;
   padding-left: 4px;
 `;
 

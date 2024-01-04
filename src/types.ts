@@ -9,3 +9,11 @@ export interface DateRange {
   start: Date;
   end: Date;
 }
+
+export interface Event {
+  start: Date;
+  end: Date;
+  isReccuring: boolean;
+  title: string;
+  id: string;
+}

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Dropdown from "./Shared/Dropdown";
 import { viewingOptions } from "../utils";
-import { useState } from "react";
 import { DateRange, ViewOption } from "../types";
 import DatesSwitcher from "./DatesSwitcher";
 import { format, startOfDay, endOfDay } from "date-fns";
@@ -22,12 +21,6 @@ const Header = ({
   handleSetDateRange: (start: Date, end: Date) => void;
   handleSelect: (value: ViewOption) => void;
 }) => {
-  const [isDropDownOpen, setIsDropdownOpen] = useState<boolean>(false);
-
-  const handleDropdownOpen = (value: boolean) => {
-    setIsDropdownOpen(value);
-  };
-
   const handleTodayClick = () => {
     const today = new Date();
     switch (selected) {
@@ -61,9 +54,8 @@ const Header = ({
       <Dropdown
         options={viewingOptions}
         selected={{ value: selected, label: selected }}
-        isOpen={isDropDownOpen}
-        handleOpen={handleDropdownOpen}
         handleSelect={handleSelect}
+        dropdownStyle={{ right: "5px" }}
       />
     </Container>
   );

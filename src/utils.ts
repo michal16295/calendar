@@ -17,7 +17,7 @@ import {
   endOfYear,
   eachDayOfInterval,
 } from "date-fns";
-import { DateRange } from "./types";
+import { DateRange, ViewOption, Event } from "./types";
 
 export const viewingOptions = [
   {
@@ -102,3 +102,26 @@ export const getDatesBetween = (dateRange: DateRange) => {
   const endDate = startOfDay(dateRange.end);
   return eachDayOfInterval({ start: startDate, end: endDate });
 };
+
+export const DEFAULT_VIEW: ViewOption = "week";
+
+export const getReccuringOptions = (day: string) => [
+  {
+    label: "One time",
+    value: false,
+  },
+  {
+    label: `Reccuring every ${day}`,
+    value: true,
+  },
+];
+
+export const DemoEvents: Array<Event> = [
+  {
+    start: endOfWeek(new Date()),
+    end: endOfWeek(new Date()),
+    title: "1:1",
+    id: "1:1",
+    isReccuring: false,
+  },
+];
